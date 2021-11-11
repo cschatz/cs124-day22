@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Day22 {
@@ -31,8 +32,12 @@ public class Day22 {
 	}
 
 	public static void main(String[] args) {
+		ArrayList<Integer> nums = new ArrayList<Integer>(Arrays.asList(7, 3, 5, 1, 4, 0, 2));
 
-
+		show(nums);
+		selectionSort(nums);
+		show(nums);
+		
 	}
 
 }
