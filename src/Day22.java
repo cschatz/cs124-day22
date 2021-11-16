@@ -32,7 +32,7 @@ public class Day22 {
 	}
 	
 	
-	public static <E extends Comparable<E>> void
+	private static <E extends Comparable<E>> void
 					merge(ArrayList<E> listA, ArrayList<E> listB, ArrayList<E> out) {
 		// Assume listA and listB are ALREADY SORTED
 		// Assume out is empty
@@ -66,6 +66,24 @@ public class Day22 {
 		
 	}
 	
+	public static <E extends Comparable<E>> void mergeSort(ArrayList<E> list) {
+		// Base case: empty list or 1-element list
+		if (list.size() <= 1)
+			return;
+		
+		// divide into two halves
+		int halfway = list.size() / 2;
+		
+		ArrayList<E> leftHalf = new ArrayList<E>(list.subList(0, halfway));
+		ArrayList<E> rightHalf = new ArrayList<E>(list.subList(halfway, list.size()));
+		
+		mergeSort(leftHalf);
+		mergeSort(rightHalf);
+		
+		list.clear();
+		merge(leftHalf, rightHalf, list);
+	}
+	
 	
 	
 
@@ -76,12 +94,19 @@ public class Day22 {
 //		selectionSort(nums);
 //		show(nums);
 		
-		ArrayList<Integer> nums1 = new ArrayList<Integer>(Arrays.asList(2, 3, 7, 8, 9));
-		ArrayList<Integer> nums2 = new ArrayList<Integer>(Arrays.asList(1, 4, 5, 6, 10));
-		ArrayList<Integer> result = new ArrayList<Integer>();
+//		ArrayList<Integer> nums1 = new ArrayList<Integer>(Arrays.asList(2, 3, 7, 8, 9));
+//		ArrayList<Integer> nums2 = new ArrayList<Integer>(Arrays.asList(1, 4, 5, 6, 10));
+//		ArrayList<Integer> result = new ArrayList<Integer>();
+//		
+//		merge(nums1, nums2, result);
+//		show(result);
 		
-		merge(nums1, nums2, result);
-		show(result);
+		ArrayList<Integer> nums = new ArrayList<Integer>(Arrays.asList(7, 3, 5, 1, 4, 0, 2));
+		show(nums);
+		mergeSort(nums);
+		show(nums);
+		
+		
 	}
 
 }
