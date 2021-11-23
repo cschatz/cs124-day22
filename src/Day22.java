@@ -84,6 +84,35 @@ public class Day22 {
 		merge(leftHalf, rightHalf, list);
 	}
 	
+	public static <E extends Comparable<E>> int partition(E[] items, int begin, int end) {
+		// arbitrarily pick the pivot
+		E pivot = items[begin];
+		// set up bookends
+		int left = begin;
+		int right = end+1;
+		// temp variable to enable swapping
+		E temp;
+		
+		// keep checking and swapping until the bookends meet
+		while (left < right) {
+			// move the left bookend forward as far as possible
+			while (left < right && items[left+1].compareTo(pivot) < 0) {
+				left++;
+			}
+			// move right bookend backward as far as possible
+			while (left < right && items[right-1].compareTo(pivot) > 0) {
+				right--;
+			}
+			// swap elements beyond each bookend
+			temp = items[left+1];
+			items[left+1] = items[right-1];
+			items[right-1] = temp;
+			left++;
+			right--;
+		}
+		
+		return 0;
+	}
 	
 	
 
