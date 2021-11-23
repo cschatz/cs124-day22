@@ -31,6 +31,13 @@ public class Day22 {
 		System.out.println();
 	}
 	
+	public static <E> void show(E[] items) {
+		for (E item : items) {
+			System.out.print(item + " ");
+		}
+		System.out.println();
+	}
+	
 	
 	private static <E extends Comparable<E>> void
 					merge(ArrayList<E> listA, ArrayList<E> listB, ArrayList<E> out) {
@@ -94,7 +101,7 @@ public class Day22 {
 		E temp;
 		
 		// keep checking and swapping until the bookends meet
-		while (left < right) {
+		while (left < right-1) {
 			// move the left bookend forward as far as possible
 			while (left < right && items[left+1].compareTo(pivot) < 0) {
 				left++;
@@ -103,15 +110,24 @@ public class Day22 {
 			while (left < right && items[right-1].compareTo(pivot) > 0) {
 				right--;
 			}
-			// swap elements beyond each bookend
-			temp = items[left+1];
-			items[left+1] = items[right-1];
-			items[right-1] = temp;
-			left++;
-			right--;
+			
+			if (left < right-1) {
+				// swap elements beyond each bookend
+				temp = items[left+1];
+				items[left+1] = items[right-1];
+				items[right-1] = temp;
+				left++;
+				right--;
+			}
 		}
 		
-		return 0;
+		// swap the pivot into its final location (index #left)
+		temp = items[right-1];
+		items[right-1] = pivot;
+		items[begin] = temp;
+		
+		// return the final position of the pivot
+		return left;
 	}
 	
 	
@@ -130,12 +146,17 @@ public class Day22 {
 //		merge(nums1, nums2, result);
 //		show(result);
 		
-		ArrayList<Integer> nums = new ArrayList<Integer>(Arrays.asList(7, 3, 5, 1, 4, 0, 2));
-		show(nums);
-		mergeSort(nums);
-		show(nums);
+//		ArrayList<Integer> nums = new ArrayList<Integer>(Arrays.asList(7, 3, 5, 1, 4, 0, 2));
+//		show(nums);
+//		mergeSort(nums);
+//		show(nums);
 		
 		
+		Integer[] nums = { 7, 11, 10, 3, 6, 5, 4, 1, 12, 9, 8, 2 };
+		show(nums);
+		int position = partition(nums, 0, nums.length-1);
+		System.out.println("Pivot position: " + position);
+		show(nums);
 	}
 
 }
