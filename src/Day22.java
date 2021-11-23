@@ -91,7 +91,7 @@ public class Day22 {
 		merge(leftHalf, rightHalf, list);
 	}
 	
-	public static <E extends Comparable<E>> int partition(E[] items, int begin, int end) {
+	private static <E extends Comparable<E>> int partition(E[] items, int begin, int end) {
 		// arbitrarily pick the pivot
 		E pivot = items[begin];
 		// set up bookends
@@ -130,7 +130,22 @@ public class Day22 {
 		return left;
 	}
 	
+	private static <E extends Comparable<E>> void quickSortHelper(E[] items, int begin, int end) {
+		System.out.println(begin + " " + end);
+		// base case: 0 or 1 elements
+		if (begin >= end) {
+			return;
+		}
+		int pivotPosition = partition(items, begin, end);
+		// We know all items are correctly arranged with respect to the pivot
+		// So recursively sort both sides
+		quickSortHelper(items, begin, pivotPosition-1);
+		quickSortHelper(items, pivotPosition+1, end);
+	}
 	
+	public static <E extends Comparable<E>> void quickSort(E[] items) {
+		quickSortHelper(items, 0, items.length-1);
+	}
 
 	public static void main(String[] args) {
 //		ArrayList<Integer> nums = new ArrayList<Integer>(Arrays.asList(7, 3, 5, 1, 4, 0, 2));
@@ -154,8 +169,7 @@ public class Day22 {
 		
 		Integer[] nums = { 7, 11, 10, 3, 6, 5, 4, 1, 12, 9, 8, 2 };
 		show(nums);
-		int position = partition(nums, 0, nums.length-1);
-		System.out.println("Pivot position: " + position);
+		quickSort(nums);
 		show(nums);
 	}
 
