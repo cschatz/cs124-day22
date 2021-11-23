@@ -103,11 +103,11 @@ public class Day22 {
 		// keep checking and swapping until the bookends meet
 		while (left < right-1) {
 			// move the left bookend forward as far as possible
-			while (left < right && items[left+1].compareTo(pivot) < 0) {
+			while (left < right-1 && items[left+1].compareTo(pivot) < 0) {
 				left++;
 			}
 			// move right bookend backward as far as possible
-			while (left < right && items[right-1].compareTo(pivot) > 0) {
+			while (left < right-1 && items[right-1].compareTo(pivot) > 0) {
 				right--;
 			}
 			
@@ -131,7 +131,6 @@ public class Day22 {
 	}
 	
 	private static <E extends Comparable<E>> void quickSortHelper(E[] items, int begin, int end) {
-		System.out.println(begin + " " + end);
 		// base case: 0 or 1 elements
 		if (begin >= end) {
 			return;
